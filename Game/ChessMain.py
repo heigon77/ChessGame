@@ -1,11 +1,13 @@
 import sys
 import pygame as pg
 import chess as ch
+import random as rd
 
 
 class Game:
 
     def __init__(self):
+        self.cyan_square = None
         self.screen = pg.display.set_mode((960, 960))
         self.boardStart_y = 0
         self.boardStart_x = 0
@@ -56,8 +58,12 @@ class Game:
     def loadImage(self):
         self.white_square = pg.image.load("Assets/white_square.png").convert()
         self.white_square = pg.transform.scale(self.white_square, (self.square_size, self.square_size))
+
         self.brown_square = pg.image.load("Assets/brown_square.png").convert()
         self.brown_square = pg.transform.scale(self.brown_square, (self.square_size, self.square_size))
+
+        self.cyan_square = pg.image.load("Assets/cyan_square.png").convert()
+        self.cyan_square = pg.transform.scale(self.cyan_square, (self.square_size, self.square_size))
 
         self.black_pawn = pg.image.load("Assets/Black/Chess_tile_pd.png").convert()
         self.black_pawn = pg.transform.scale(self.black_pawn, (self.square_size, self.square_size))
@@ -101,33 +107,42 @@ class Game:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     sys.exit()
-                if event.type == pg.MOUSEBUTTONDOWN:
-                    if fclick == None:
-                        fclick = self.ConvertToChessCoords(pg.mouse.get_pos())
-                    elif sclick == None:
-                        sclick = self.ConvertToChessCoords(pg.mouse.get_pos())
-                        move = ch.Move(self.squares[fclick[0]][fclick[1]], self.squares[sclick[0]][sclick[1]])
-                        print(move)
-                        if move in board.legal_moves:
-                            board.push(move)
-                            fclick = sclick = None
-                            if board.is_checkmate():
-                                playing = False
-                                print("Checkmate")
-                        else:
-                            print("Invalid move")
-                            fclick = sclick = None
+
+                if board.turn == ch.WHITE:
+                    if event.type == pg.MOUSEBUTTONDOWN:
+                        if fclick == None:
+                            fclick = self.ConvertToChessCoords(pg.mouse.get_pos())
+                        elif sclick == None:
+                            sclick = self.ConvertToChessCoords(pg.mouse.get_pos())
+                            move = ch.Move(self.squares[fclick[0]][fclick[1]], self.squares[sclick[0]][sclick[1]])
+                            print(move)
+                            if move in board.legal_moves:
+                                board.push(move)
+                                fclick = sclick = None
+                                if board.is_checkmate():
+                                    playing = False
+                                    print("Checkmate")
+                            else:
+                                print("Invalid move")
+                                fclick = sclick = None
+                else:
+                    moves = list(board.legal_moves)
+                    board.push(rd.choice(moves))
 
             current_square = 0
             for r in range(8):
                 for c in range(8):
                     screen = self.ConvertToScreenCoords([r, c])
-                    if current_square:
-                        self.screen.blit(self.brown_square, (screen[0], screen[1]))
+                    if fclick == [r, c]:
+                        self.screen.blit(self.cyan_square, (screen[0], screen[1]))
                         current_square = (current_square + 1) % 2
                     else:
-                        self.screen.blit(self.white_square, (screen[0], screen[1]))
-                        current_square = (current_square + 1) % 2
+                        if current_square:
+                            self.screen.blit(self.brown_square, (screen[0], screen[1]))
+                            current_square = (current_square + 1) % 2
+                        else:
+                            self.screen.blit(self.white_square, (screen[0], screen[1]))
+                            current_square = (current_square + 1) % 2
                 current_square = (current_square + 1) % 2
 
             for r in range(8):
