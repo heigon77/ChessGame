@@ -1,14 +1,31 @@
 import sys
 import pygame as pg
 import chess as ch
+from Game.DailyPuzzle import DailyPuzzle
 
 
 class Game:
 
-    def __init__(self, chess_engine, chess_dot_com=None):
+    def __init__(self, chess_engine, color_puzzle):
 
         self.chess_engine = chess_engine
-        self.chess_dot_com = chess_dot_com
+
+        if type(color_puzzle) == DailyPuzzle:
+            self.chess_dot_com = color_puzzle
+            fen = color_puzzle.get_daily_puzzle()
+
+            color = False
+            for i in fen.json['puzzle']['fen']:
+                if color:
+                    if i == 'w':
+                        self.player_color = ch.WHITE
+                    else:
+                        self.player_color = ch.BLACK
+                elif i == ' ':
+                    color = True
+        else:
+            self.chess_dot_com = None
+            self.player_color = color_puzzle
 
         self.square_color_dict = None
         self.black_pieces_dict = None
@@ -24,13 +41,23 @@ class Game:
 
         # Creating the matrix with the int that represents each square in chess lib
         self.squares = []
-        idx = 0
-        for i in range(8):
-            l_aux = []
-            for j in range(8):
-                l_aux.append(idx)
-                idx += 1
-            self.squares.insert(0, l_aux)
+        if self.player_color == ch.WHITE:
+            idx = 0
+            for i in range(8):
+                l_aux = []
+                for j in range(8):
+                    l_aux.append(idx)
+                    idx += 1
+                self.squares.insert(0, l_aux)
+        else:
+            idx = 0
+            for i in range(8):
+                l_aux = []
+                for j in range(8):
+                    l_aux.append(idx)
+                    idx += 1
+                l_aux.reverse()
+                self.squares.append(l_aux)
 
     def to_screen_coordinates(self, chess_square_list):
         """
@@ -159,6 +186,8 @@ class Game:
         font = pg.font.Font(None, 64)
 
         chess_coluns = ["A", "B", "C", "D", "E", "F", "G", "H"]
+        if self.player_color == ch.BLACK:
+            chess_coluns.reverse()
         init_pos = 85
         for i in chess_coluns:
             text = font.render(i, True, (255, 255, 255))
@@ -167,6 +196,8 @@ class Game:
             background.blit(text, textpos)
 
         chess_rows = ["8", "7", "6", "5", "4", "3", "2", "1"]
+        if self.player_color == ch.BLACK:
+            chess_rows.reverse()
         init_pos = 40
         for i in chess_rows:
             text = font.render(i, True, (255, 255, 255))
@@ -250,10 +281,16 @@ class Game:
                     sys.exit()
                 elif self.game_finished():
                     playing = False
-                elif self.board.turn == ch.WHITE:
-                    self.player_choose_move(event)
-                else:
-                    self.engine_choose_move()
+                elif self.player_color == ch.WHITE:
+                    if self.board.turn == ch.WHITE:
+                        self.player_choose_move(event)
+                    else:
+                        self.engine_choose_move()
+                elif self.player_color == ch.BLACK:
+                    if self.board.turn == ch.WHITE:
+                        self.engine_choose_move()
+                    else:
+                        self.player_choose_move(event)
 
             self.draw_chess_board()
 
