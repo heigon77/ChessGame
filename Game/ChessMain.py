@@ -21,6 +21,7 @@ class Game:
                         self.player_color = ch.BLACK
                     else:
                         self.player_color = ch.WHITE
+                    break
                 elif i == ' ':
                     color = True
         else:
