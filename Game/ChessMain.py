@@ -3,20 +3,25 @@ import pygame as pg
 import chess as ch
 import random as rd
 
-
 class Game:
 
-    def __init__(self):
+    def __init__(self, chess_engine):
+
+        self.chess_engine = chess_engine
 
         self.square_color_dict = None
         self.black_pieces_dict = None
         self.white_pieces_dict = None
 
-        self.screen = pg.display.set_mode((960, 960))
+        self.fir_click = None
+        self.sec_click = None
 
+        self.screen = pg.display.set_mode((960, 960))
+        self.board = None
         self.board_start = [0, 0]
         self.square_size = 120
 
+        #Creating the matrix with the int that represents each square in chess lib
         self.squares = []
         idx = 0
         for i in range(8):
@@ -26,136 +31,199 @@ class Game:
                 idx += 1
             self.squares.insert(0, l_aux)
 
-    def to_screen(self, chess_square_list):
-        # converts a (row,col) chessSquare into the pixel location of the upper-left corner of the square
-        screen = [self.board_start[0] + chess_square_list[1] * self.square_size,
-                  self.board_start[1] + chess_square_list[0] * self.square_size]
-        return screen
+    def to_screen_coordinates(self, chess_square_list):
+        """
+        Converting chess square coordinates to screen position
+        :param chess_square_list:
+        :return screen_coordinates:
+        """
+        screen_coordinates = [self.board_start[0] + chess_square_list[1] * self.square_size,
+                              self.board_start[1] + chess_square_list[0] * self.square_size]
+        return screen_coordinates
 
-    def to_chess(self, screen_position_list):
-        # converts a screen pixel location (X,Y) into a chessSquare tuple (row,col)
-        # x is horizontal, y is vertical
-        # (x=0,y=0) is upper-left corner of the screen
-        chess = [(screen_position_list[1] - self.board_start[1]) // self.square_size,
-                 (screen_position_list[0] - self.board_start[0]) // self.square_size]
-        return chess
+    def to_chess_coordinates(self, screen_position_list):
+        """
+        Converting chess screen coordinates to chess coordinates
+        :param screen_position_list:
+        :return chess_coordinates:
+        """
+        chess_coordinates = [(screen_position_list[1] - self.board_start[1]) // self.square_size,
+                             (screen_position_list[0] - self.board_start[0]) // self.square_size]
+        return chess_coordinates
 
     def load_image(self):
-
+        """
+        Load all the image assets
+        :return:
+        """
         self.square_color_dict = {
-            "white": pg.transform.scale(pg.image.load("Assets/white_square.png").convert()
-                                        , (self.square_size, self.square_size)),
-            "brown": pg.transform.scale(pg.image.load("Assets/brown_square.png").convert()
-                                        , (self.square_size, self.square_size)),
-            "cyan": pg.transform.scale(pg.image.load("Assets/cyan_square.png").convert()
-                                       , (self.square_size, self.square_size))
+            "white": pg.transform.scale(pg.image.load("Assets/white_square.png").convert(),
+                                        (self.square_size, self.square_size)),
+            "brown": pg.transform.scale(pg.image.load("Assets/brown_square.png").convert(),
+                                        (self.square_size, self.square_size)),
+            "cyan": pg.transform.scale(pg.image.load("Assets/cyan_square.png").convert(),
+                                       (self.square_size, self.square_size))
         }
 
         self.black_pieces_dict = {
-            ch.PAWN: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_pd.png").convert()
-                                        , (self.square_size, self.square_size)),
-            ch.ROOK: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_rd.png").convert()
-                                        , (self.square_size, self.square_size)),
-            ch.KNIGHT: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_nd.png").convert()
-                                          , (self.square_size, self.square_size)),
-            ch.BISHOP: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_bd.png").convert()
-                                          , (self.square_size, self.square_size)),
-            ch.KING: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_kd.png").convert()
-                                        , (self.square_size, self.square_size)),
-            ch.QUEEN: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_qd.png").convert()
-                                         , (self.square_size, self.square_size))
+            ch.PAWN: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_pd.png").convert(),
+                                        (self.square_size, self.square_size)),
+            ch.ROOK: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_rd.png").convert(),
+                                        (self.square_size, self.square_size)),
+            ch.KNIGHT: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_nd.png").convert(),
+                                          (self.square_size, self.square_size)),
+            ch.BISHOP: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_bd.png").convert(),
+                                          (self.square_size, self.square_size)),
+            ch.KING: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_kd.png").convert(),
+                                        (self.square_size, self.square_size)),
+            ch.QUEEN: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_qd.png").convert(),
+                                         (self.square_size, self.square_size))
         }
 
         self.white_pieces_dict = {
-            ch.PAWN: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_pl.png").convert()
-                                        , (self.square_size, self.square_size)),
-            ch.ROOK: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_rl.png").convert()
-                                        , (self.square_size, self.square_size)),
-            ch.KNIGHT: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_nl.png").convert()
-                                          , (self.square_size, self.square_size)),
-            ch.BISHOP: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_bl.png").convert()
-                                          , (self.square_size, self.square_size)),
-            ch.KING: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_kl.png").convert()
-                                        , (self.square_size, self.square_size)),
-            ch.QUEEN: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_ql.png").convert()
-                                         , (self.square_size, self.square_size))
+            ch.PAWN: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_pl.png").convert(),
+                                        (self.square_size, self.square_size)),
+            ch.ROOK: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_rl.png").convert(),
+                                        (self.square_size, self.square_size)),
+            ch.KNIGHT: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_nl.png").convert(),
+                                          (self.square_size, self.square_size)),
+            ch.BISHOP: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_bl.png").convert(),
+                                          (self.square_size, self.square_size)),
+            ch.KING: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_kl.png").convert(),
+                                        (self.square_size, self.square_size)),
+            ch.QUEEN: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_ql.png").convert(),
+                                         (self.square_size, self.square_size))
         }
 
-    def play(self):
-        pg.init()
+        return
 
+    def player_choose_move(self, event):
+        """
+        Get the event from pygame and the board and update it with the player move
+        :param event:
+        :return:
+        """
+
+        if event.type == pg.MOUSEBUTTONDOWN:
+
+            if self.fir_click is None:
+                self.fir_click = self.to_chess_coordinates(pg.mouse.get_pos())
+
+            elif self.sec_click is None:
+                self.sec_click = self.to_chess_coordinates(pg.mouse.get_pos())
+
+                if (ch.Move(self.squares[self.fir_click[0]][self.fir_click[1]],
+                            self.squares[self.sec_click[0]][self.sec_click[1]],
+                            ch.QUEEN)) in self.board.legal_moves:
+                    move = ch.Move(self.squares[self.fir_click[0]][self.fir_click[1]],
+                                   self.squares[self.sec_click[0]][self.sec_click[1]],
+                                   ch.QUEEN)
+                else:
+                    move = ch.Move(self.squares[self.fir_click[0]][self.fir_click[1]],
+                                   self.squares[self.sec_click[0]][self.sec_click[1]])
+
+                print(move)
+                if move in self.board.legal_moves:
+                    self.board.push(move)
+                    self.fir_click = self.sec_click = None
+                else:
+                    print("Invalid move")
+                    print(self.board.legal_moves)
+                    self.fir_click = self.sec_click = None
+        return
+
+    def engine_choose_move(self):
+        """
+        The engine update the board
+        :return:
+        """
+        move = self.chess_engine.choose_move(self.board)
+        if move:
+            self.board.push(move)
+
+        return
+
+    def draw_chess_board(self):
+        """
+        Draw the board's squares
+        :return:
+        """
+        current_square = 0
+
+        for i in range(8):
+            for j in range(8):
+                screen = self.to_screen_coordinates([i, j])
+                if self.fir_click == [i, j]:
+                    self.screen.blit(self.square_color_dict["cyan"], (screen[0], screen[1]))
+                    current_square = (current_square + 1) % 2
+                else:
+                    if current_square:
+                        self.screen.blit(self.square_color_dict["brown"], (screen[0], screen[1]))
+                        current_square = (current_square + 1) % 2
+                    else:
+                        self.screen.blit(self.square_color_dict["white"], (screen[0], screen[1]))
+                        current_square = (current_square + 1) % 2
+            current_square = (current_square + 1) % 2
+
+        return
+
+    def draw_pieces(self):
+        """
+        Draw the pieces on the board
+        :return:
+        """
+        for i in range(8):
+            for j in range(8):
+                screen = self.to_screen_coordinates([i, j])
+                piece = self.board.piece_at(self.squares[i][j])
+                if piece is not None:
+                    if piece.color == ch.BLACK:
+                        self.screen.blit(self.black_pieces_dict[piece.piece_type], (screen[0], screen[1]))
+                    else:
+                        self.screen.blit(self.white_pieces_dict[piece.piece_type], (screen[0], screen[1]))
+        return
+
+    def game_finished(self):
+        """
+        Verifies is the game ended
+        :return:
+        """
+
+        if self.board.is_checkmate():
+            print("Checkmate")
+            return True
+
+        elif self.board.is_stalemate():
+            print("Stalemate")
+            return True
+
+        return False
+
+
+    def play(self):
+        """
+        Method that runs the game
+        :return:
+        """
+        pg.init()
         self.load_image()
 
-        board = ch.Board()
-
-        fir_click = None
-        sec_click = None
+        self.board = ch.Board()
 
         playing = True
         while playing:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     sys.exit()
-                elif board.is_checkmate():
+                elif self.game_finished():
                     playing = False
-                    print("Checkmate")
-                elif board.is_stalemate():
-                    playing = False
-                    print("Stalemate")
-                elif board.turn == ch.WHITE:
-                    if event.type == pg.MOUSEBUTTONDOWN:
-                        if fir_click is None:
-                            fir_click = self.to_chess(pg.mouse.get_pos())
-                        elif sec_click is None:
-                            sec_click = self.to_chess(pg.mouse.get_pos())
-
-                            if (ch.Move(self.squares[fir_click[0]][fir_click[1]],
-                                        self.squares[sec_click[0]][sec_click[1]],
-                                        ch.QUEEN)) in board.legal_moves:
-                                move = ch.Move(self.squares[fir_click[0]][fir_click[1]],
-                                               self.squares[sec_click[0]][sec_click[1]],
-                                               ch.QUEEN)
-                            else:
-                                move = ch.Move(self.squares[fir_click[0]][fir_click[1]],
-                                               self.squares[sec_click[0]][sec_click[1]])
-
-                            print(move)
-                            if move in board.legal_moves:
-                                board.push(move)
-                                fir_click = sec_click = None
-                            else:
-                                print("Invalid move")
-                                print(board.legal_moves)
-                                fir_click = sec_click = None
+                elif self.board.turn == ch.WHITE:
+                    self.player_choose_move(event)
                 else:
-                    moves = list(board.legal_moves)
-                    if moves:
-                        board.push(rd.choice(moves))
+                    self.engine_choose_move()
 
-            current_square = 0
-            for r in range(8):
-                for c in range(8):
-                    screen = self.to_screen([r, c])
-                    if fir_click == [r, c]:
-                        self.screen.blit(self.square_color_dict["cyan"], (screen[0], screen[1]))
-                        current_square = (current_square + 1) % 2
-                    else:
-                        if current_square:
-                            self.screen.blit(self.square_color_dict["brown"], (screen[0], screen[1]))
-                            current_square = (current_square + 1) % 2
-                        else:
-                            self.screen.blit(self.square_color_dict["white"], (screen[0], screen[1]))
-                            current_square = (current_square + 1) % 2
-                current_square = (current_square + 1) % 2
+            self.draw_chess_board()
 
-            for r in range(8):
-                for c in range(8):
-                    screen = self.to_screen([r, c])
-                    piece = board.piece_at(self.squares[r][c])
-                    if piece is not None:
-                        if piece.color == ch.BLACK:
-                            self.screen.blit(self.black_pieces_dict[piece.piece_type], (screen[0], screen[1]))
-                        else:
-                            self.screen.blit(self.white_pieces_dict[piece.piece_type], (screen[0], screen[1]))
+            self.draw_pieces()
 
             pg.display.flip()
