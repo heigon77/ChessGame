@@ -17,10 +17,10 @@ class Game:
             color = False
             for i in fen.json['puzzle']['fen']:
                 if color:
-                    if i == 'w':
-                        self.player_color = ch.WHITE
-                    else:
+                    if i == 'b':
                         self.player_color = ch.BLACK
+                    else:
+                        self.player_color = ch.WHITE
                 elif i == ' ':
                     color = True
         else:
