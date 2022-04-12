@@ -6,7 +6,7 @@ from Game.DailyPuzzle import DailyPuzzle
 
 class Game:
 
-    def __init__(self, chess_engine, color_puzzle):
+    def __init__(self, chess_engine, color_puzzle=ch.WHITE):
 
         self.chess_engine = chess_engine
 
