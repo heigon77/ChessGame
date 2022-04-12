@@ -5,9 +5,10 @@ import chess as ch
 
 class Game:
 
-    def __init__(self, chess_engine):
+    def __init__(self, chess_engine, chess_dot_com=None):
 
         self.chess_engine = chess_engine
+        self.chess_dot_com = chess_dot_com
 
         self.square_color_dict = None
         self.black_pieces_dict = None
@@ -237,6 +238,10 @@ class Game:
         self.load_image()
 
         self.board = ch.Board()
+
+        if self.chess_dot_com is not None:
+            daily_puzzle = self.chess_dot_com.get_daily_puzzle()
+            self.board.set_fen(daily_puzzle.json['puzzle']['fen'])
 
         playing = True
         while playing:
