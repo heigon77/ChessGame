@@ -1,6 +1,7 @@
 import chess as ch
 import random as rd
 
+
 class DumbChessEngine:
 
     def __init__(self):

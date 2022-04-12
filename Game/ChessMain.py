@@ -1,7 +1,7 @@
 import sys
 import pygame as pg
 import chess as ch
-import random as rd
+
 
 class Game:
 
@@ -21,7 +21,7 @@ class Game:
         self.board_start = [0, 0]
         self.square_size = 120
 
-        #Creating the matrix with the int that represents each square in chess lib
+        # Creating the matrix with the int that represents each square in chess lib
         self.squares = []
         idx = 0
         for i in range(8):
@@ -198,7 +198,6 @@ class Game:
             return True
 
         return False
-
 
     def play(self):
         """
