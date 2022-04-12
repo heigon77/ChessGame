@@ -16,9 +16,9 @@ class Game:
         self.fir_click = None
         self.sec_click = None
 
-        self.screen = pg.display.set_mode((960, 960))
+        self.screen = pg.display.set_mode((1000, 1000))
         self.board = None
-        self.board_start = [0, 0]
+        self.board_start = [40, 0]
         self.square_size = 120
 
         # Creating the matrix with the int that represents each square in chess lib
@@ -57,12 +57,13 @@ class Game:
         :return:
         """
         self.square_color_dict = {
-            "white": pg.transform.scale(pg.image.load("Assets/white_square.png").convert(),
+            "light": pg.transform.scale(pg.image.load("Assets/Squares/light_square.png").convert(),
                                         (self.square_size, self.square_size)),
-            "brown": pg.transform.scale(pg.image.load("Assets/brown_square.png").convert(),
-                                        (self.square_size, self.square_size)),
-            "cyan": pg.transform.scale(pg.image.load("Assets/cyan_square.png").convert(),
-                                       (self.square_size, self.square_size))
+            "dark": pg.transform.scale(pg.image.load("Assets/Squares/dark_square.png").convert(),
+                                       (self.square_size, self.square_size)),
+            "selected": pg.transform.scale(pg.image.load("Assets/Squares/yellow_square.png").convert(),
+                                           (self.square_size, self.square_size))
+
         }
 
         self.black_pieces_dict = {
@@ -148,20 +149,46 @@ class Game:
         Draw the board's squares
         :return:
         """
+
+        # Create The Backgound
+        background = pg.Surface(self.screen.get_size())
+        background = background.convert()
+        background.fill((0, 0, 0))
+
+        font = pg.font.Font(None, 64)
+
+        chess_coluns = ["A", "B", "C", "D", "E", "F", "G", "H"]
+        init_pos = 85
+        for i in chess_coluns:
+            text = font.render(i, True, (255, 255, 255))
+            textpos = text.get_rect(x=init_pos, y=960)
+            init_pos += 120
+            background.blit(text, textpos)
+
+        chess_rows = ["8", "7", "6", "5", "4", "3", "2", "1"]
+        init_pos = 40
+        for i in chess_rows:
+            text = font.render(i, True, (255, 255, 255))
+            textpos = text.get_rect(x=10, y=init_pos)
+            init_pos += 120
+            background.blit(text, textpos)
+
+        self.screen.blit(background, (0, 0))
+
         current_square = 0
 
         for i in range(8):
             for j in range(8):
-                screen = self.to_screen_coordinates([i, j])
+                screen_cd = self.to_screen_coordinates([i, j])
                 if self.fir_click == [i, j]:
-                    self.screen.blit(self.square_color_dict["cyan"], (screen[0], screen[1]))
+                    self.screen.blit(self.square_color_dict["selected"], (screen_cd[0], screen_cd[1]))
                     current_square = (current_square + 1) % 2
                 else:
                     if current_square:
-                        self.screen.blit(self.square_color_dict["brown"], (screen[0], screen[1]))
+                        self.screen.blit(self.square_color_dict["dark"], (screen_cd[0], screen_cd[1]))
                         current_square = (current_square + 1) % 2
                     else:
-                        self.screen.blit(self.square_color_dict["white"], (screen[0], screen[1]))
+                        self.screen.blit(self.square_color_dict["light"], (screen_cd[0], screen_cd[1]))
                         current_square = (current_square + 1) % 2
             current_square = (current_square + 1) % 2
 
@@ -205,6 +232,8 @@ class Game:
         :return:
         """
         pg.init()
+        pg.display.set_caption("Chess Game")
+
         self.load_image()
 
         self.board = ch.Board()
