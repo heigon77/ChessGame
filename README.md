@@ -9,6 +9,6 @@ Esse projeto é uma base para se implementar uma engine de xadrez em python util
 No diretório [Game](https://github.com/heigon77/ChessGame/tree/master/Game) temos os principais arquivos.  
 O arquivo [ChessMain.py](https://github.com/heigon77/ChessGame/blob/master/Game/ChessMain.py) possui a implementação base do jogo de xadrez de um player contra uma engine. Pode iniciar um jogo novo ou começar de uma posição definida através da notação [FEN](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation).   
 O arquivo [DumbChessEngine.py](https://github.com/heigon77/ChessGame/blob/master/Game/DumbChessEngine.py) escolhe um movimento legal aleatório de uma posição de um tabuleiro de xadrez e o [DailyPuzzle.py](https://github.com/heigon77/ChessGame/blob/master/Game/DailyPuzzle.py) requisita aleatóriamente um dos puzzles diários  do chess.com    
-O arquivo [EngineVsEngine](https://github.com/heigon77/ChessGame/blob/master/Game/EngineVsEngine.py) apenas executa 10 partidas entre duas engines, no caso a DumbChessEngine.   
+O arquivo [EngineVsEngine](https://github.com/heigon77/ChessGame/blob/master/Game/EngineVsEngine.py) apenas executa 10 partidas entre duas engines, no caso, a DumbChessEngine.   
 
 No [main.py](https://github.com/heigon77/ChessGame/blob/master/main.py) temos a inicialização do jogo, com a opção de escolher um novo jogo com as peças branca ou com as peças pretas ou começar um jogo a partir de um puzzle do chess.com.
