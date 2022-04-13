@@ -260,6 +260,14 @@ class Game:
             print("Stalemate")
             return True
 
+        elif self.board.is_insufficient_material():
+            print("Draw by insufficient material")
+            return True
+
+        elif self.board.can_claim_threefold_repetition():
+            print("Draw claimed")
+            return True
+
         return False
 
     def play(self):
