@@ -12,10 +12,11 @@ class Game:
 
         if type(color_puzzle) == DailyPuzzle:
             self.chess_dot_com = color_puzzle
-            fen = color_puzzle.get_daily_puzzle()
+            self.daily_puzzle = color_puzzle.get_daily_puzzle()
+            self.fen = self.daily_puzzle.json['puzzle']['fen']
 
             color = False
-            for i in fen.json['puzzle']['fen']:
+            for i in self.fen:
                 if color:
                     if i == 'b':
                         self.player_color = ch.BLACK
@@ -272,8 +273,7 @@ class Game:
         self.board = ch.Board()
 
         if self.chess_dot_com is not None:
-            daily_puzzle = self.chess_dot_com.get_daily_puzzle()
-            self.board.set_fen(daily_puzzle.json['puzzle']['fen'])
+            self.board.set_fen(self.fen)
 
         playing = True
         while playing:
