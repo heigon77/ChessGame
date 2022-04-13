@@ -8,8 +8,10 @@ class Game:
 
     def __init__(self, chess_engine, color_puzzle=ch.WHITE):
 
+        # Define the engine that the game will be using
         self.chess_engine = chess_engine
 
+        # Verifies if was passed a puzzle position
         if type(color_puzzle) == DailyPuzzle:
             self.chess_dot_com = color_puzzle
             self.daily_puzzle = color_puzzle.get_daily_puzzle()
@@ -97,32 +99,32 @@ class Game:
         }
 
         self.black_pieces_dict = {
-            ch.PAWN: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_pd.png").convert(),
+            ch.PAWN: pg.transform.scale(pg.image.load("Assets/Black/black_pawn.png").convert(),
                                         (self.square_size, self.square_size)),
-            ch.ROOK: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_rd.png").convert(),
+            ch.ROOK: pg.transform.scale(pg.image.load("Assets/Black/black_rook.png").convert(),
                                         (self.square_size, self.square_size)),
-            ch.KNIGHT: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_nd.png").convert(),
+            ch.KNIGHT: pg.transform.scale(pg.image.load("Assets/Black/black_knight.png").convert(),
                                           (self.square_size, self.square_size)),
-            ch.BISHOP: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_bd.png").convert(),
+            ch.BISHOP: pg.transform.scale(pg.image.load("Assets/Black/black_bishop.png").convert(),
                                           (self.square_size, self.square_size)),
-            ch.KING: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_kd.png").convert(),
+            ch.KING: pg.transform.scale(pg.image.load("Assets/Black/black_king.png").convert(),
                                         (self.square_size, self.square_size)),
-            ch.QUEEN: pg.transform.scale(pg.image.load("Assets/Black/Chess_tile_qd.png").convert(),
+            ch.QUEEN: pg.transform.scale(pg.image.load("Assets/Black/black_queen.png").convert(),
                                          (self.square_size, self.square_size))
         }
 
         self.white_pieces_dict = {
-            ch.PAWN: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_pl.png").convert(),
+            ch.PAWN: pg.transform.scale(pg.image.load("Assets/White/white_pawn.png").convert(),
                                         (self.square_size, self.square_size)),
-            ch.ROOK: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_rl.png").convert(),
+            ch.ROOK: pg.transform.scale(pg.image.load("Assets/White/white_rook.png").convert(),
                                         (self.square_size, self.square_size)),
-            ch.KNIGHT: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_nl.png").convert(),
+            ch.KNIGHT: pg.transform.scale(pg.image.load("Assets/White/white_knight.png").convert(),
                                           (self.square_size, self.square_size)),
-            ch.BISHOP: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_bl.png").convert(),
+            ch.BISHOP: pg.transform.scale(pg.image.load("Assets/White/white_bishop.png").convert(),
                                           (self.square_size, self.square_size)),
-            ch.KING: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_kl.png").convert(),
+            ch.KING: pg.transform.scale(pg.image.load("Assets/White/white_king.png").convert(),
                                         (self.square_size, self.square_size)),
-            ch.QUEEN: pg.transform.scale(pg.image.load("Assets/White/Chess_tile_ql.png").convert(),
+            ch.QUEEN: pg.transform.scale(pg.image.load("Assets/White/white_queen.png").convert(),
                                          (self.square_size, self.square_size))
         }
 
