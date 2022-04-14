@@ -11,4 +11,6 @@ O arquivo [ChessMain.py](https://github.com/heigon77/ChessGame/blob/master/Game/
 O arquivo [DumbChessEngine.py](https://github.com/heigon77/ChessGame/blob/master/Game/DumbChessEngine.py) escolhe um movimento legal aleatório de uma posição de um tabuleiro de xadrez e o [DailyPuzzle.py](https://github.com/heigon77/ChessGame/blob/master/Game/DailyPuzzle.py) requisita aleatóriamente um dos puzzles diários  do chess.com    
 O arquivo [EngineVsEngine.py](https://github.com/heigon77/ChessGame/blob/master/Game/EngineVsEngine.py) apenas executa 10 partidas entre duas engines, no caso, a DumbChessEngine.   
 
-No [main.py](https://github.com/heigon77/ChessGame/blob/master/main.py) temos a inicialização do jogo, com a opção de escolher um novo jogo com as peças branca ou com as peças pretas ou começar um jogo a partir de um puzzle do chess.com.
+No [main.py](https://github.com/heigon77/ChessGame/blob/master/main.py) temos a inicialização do jogo, com a opção de escolher um novo jogo com as peças branca ou com as peças pretas ou começar um jogo a partir de um puzzle do chess.com.   
+
+Nesse [link](https://drive.google.com/file/d/1egYDC5uKpj0qZKllFJyJlOUHIaWYwmtc/view?usp=sharing) tem um vídeo rápido de demonstração das atuais funcionalidades. Inicia um jogo de algumas da cores contra a DumbChessEngine, inicia um jogo a partir de uma posição de um puzzle aleatório do chess.com contra a DumbChessEngine e, por fim, roda 10 partidadas entre as engines.
