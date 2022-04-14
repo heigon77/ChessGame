@@ -11,7 +11,7 @@ if __name__ == '__main__':
 
     if mode == 'p':
         Game(DumbChessEngine(), DailyPuzzle()).play()
-    if mode == 'e':
+    elif mode == 'e':
         EngineVsEngine(DumbChessEngine(), DumbChessEngine()).play()
     else:
         color = input("Type 'b' for black or 'w' for white\n")
