@@ -265,7 +265,7 @@ class Game:
             return True
 
         elif self.board.can_claim_threefold_repetition():
-            print("Draw claimed")
+            print("Draw by repetition")
             return True
 
         return False
