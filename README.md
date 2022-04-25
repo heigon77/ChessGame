@@ -13,4 +13,6 @@ O arquivo [EngineVsEngine.py](https://github.com/heigon77/ChessGame/blob/master/
 
 No [main.py](https://github.com/heigon77/ChessGame/blob/master/main.py) temos a inicialização do jogo, com a opção de escolher um novo jogo com as peças branca ou com as peças pretas ou começar um jogo a partir de um puzzle do chess.com.   
 
+##Vídeo
+
 Nesse [link](https://drive.google.com/file/d/1egYDC5uKpj0qZKllFJyJlOUHIaWYwmtc/view?usp=sharing) tem um vídeo rápido de demonstração das atuais funcionalidades. Inicia um jogo com algumas das cores contra a DumbChessEngine, inicia um jogo a partir de uma posição de um puzzle aleatório do chess.com contra a DumbChessEngine e, por fim, roda 10 partidadas entre as engines.
