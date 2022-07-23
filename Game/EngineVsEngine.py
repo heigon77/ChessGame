@@ -61,6 +61,7 @@ class EngineVsEngine:
             playing = True
             while playing:
                 if self.game_finished():
+                    print(self.board)
                     playing = False
                 elif self.board.turn == ch.WHITE:
                     self.white_engine_choose_move()
