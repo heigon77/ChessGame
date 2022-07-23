@@ -1,5 +1,6 @@
 from Game.ChessMain import Game
-from Game.DumbChessEngine import DumbChessEngine
+from Engines.DumbChessEngine import DumbChessEngine
+from Engines.MiniMaxClassical import MiniMaxClassical
 from Game.DailyPuzzle import DailyPuzzle
 from Game.EngineVsEngine import EngineVsEngine
 
@@ -7,15 +8,20 @@ import chess as ch
 
 if __name__ == '__main__':
 
-    mode = input("Type 'n' for new game, 'p' for a random chess.com daily puzzle or 'e' for Engine vs Engine \n")
-
-    if mode == 'p':
-        Game(DumbChessEngine(), DailyPuzzle()).play()
-    elif mode == 'e':
-        EngineVsEngine(DumbChessEngine(), DumbChessEngine()).play()
-    else:
-        color = input("Type 'b' for black or 'w' for white\n")
-        if color == 'b':
-            Game(DumbChessEngine(), ch.BLACK).play()
-        else:
-            Game(DumbChessEngine(), ch.WHITE).play()
+    # mode = input("Type 'n' for new game, 'p' for a random chess.com daily puzzle or 'e' for Engine vs Engine \n")
+    #
+    # if mode == 'p':
+    #     Game(DumbChessEngine(), DailyPuzzle()).play()
+    # elif mode == 'e':
+    #     EngineVsEngine(DumbChessEngine(), DumbChessEngine()).play()
+    # else:
+    #     color = input("Type 'b' for black or 'w' for white\n")
+    #     engine = input("Type 'd' for dumb or 'm' for minimax\n")
+    #     if color == 'b' and engine == 'd':
+    #         Game(DumbChessEngine(), ch.BLACK).play()
+    #     elif color == 'w' and engine == 'd':
+    #         Game(DumbChessEngine(), ch.WHITE).play()
+    #     elif color == 'b' and engine == 'm':
+    #         Game(MiniMaxClassical(), ch.BLACK).play()
+    #     else:
+    Game(MiniMaxClassical(), ch.WHITE).play()
