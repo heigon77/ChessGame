@@ -7,9 +7,10 @@ class DumbChessEngine:
     def __init__(self):
         pass
 
-    def choose_move(self, board: ch.Board()):
+    def choose_move(self, board: ch.Board(), color=None):
         """
         Choose any random move
+        :param color:
         :param board:
         :return:
         """

@@ -5,18 +5,28 @@ import random as rd
 class MiniMaxClassical:
 
     def __init__(self):
-        self.depth_lim = 1
+        self.depth_lim = 3
         self.MAX = 1000
         self.MIN = -1000
 
-    def choose_move(self, board: ch.Board()):
+    def choose_move(self, board: ch.Board(), color):
         """
         Choose any random move
+        :param color:
         :param board:
         :return:
         """
+        if color == ch.WHITE:
+            max_player = True
+        else:
+            max_player = False
 
-        move = self.minimax(0, board, False, self.MIN, self.MAX)
+        move = self.minimax(0, board, max_player, self.MIN, self.MAX)
+        nboard = board.copy()
+        nboard.push(move[1])
+
+        print("Escolhido: ", self.evaluation(board), move[1])
+
         return move[1]
 
     # Returns optimal value for current player
@@ -27,8 +37,8 @@ class MiniMaxClassical:
 
         # Terminating condition. i.e.
         # leaf node is reached
-        if depth == self.depth_lim or self.game_finished(board):
-
+        print(self.evaluation(board), maximizingPlayer, depth)
+        if depth == self.depth_lim or len(moves) == 0:
             return self.evaluation(board), None
 
         if maximizingPlayer:
@@ -42,7 +52,7 @@ class MiniMaxClassical:
                 new_board.push(i)
                 val = self.minimax(depth + 1, new_board, False, alpha, beta)[0]
 
-                if best > val:
+                if val > best:
                     best = val
                     best_move = i
 
@@ -65,7 +75,7 @@ class MiniMaxClassical:
                 new_board.push(i)
                 val = self.minimax(depth + 1, new_board, True, alpha, beta)[0]
 
-                if best < val:
+                if val < best:
                     best = val
                     best_move = i
 
@@ -80,7 +90,7 @@ class MiniMaxClassical:
     def evaluation(self, board):
         value = 0
 
-        value += 200 * (self.count_pieces(board, ch.KING, ch.WHITE) - self.count_pieces(board, ch.KING, ch.BLACK))
+        value += self.game_finished_value(board)
         value += 9 * (self.count_pieces(board, ch.QUEEN, ch.WHITE) - self.count_pieces(board, ch.QUEEN, ch.BLACK))
         value += 5 * (self.count_pieces(board, ch.ROOK, ch.WHITE) - self.count_pieces(board, ch.ROOK, ch.BLACK))
         value += 3 * (self.count_pieces(board, ch.BISHOP, ch.WHITE) - self.count_pieces(board, ch.BISHOP, ch.BLACK))
@@ -113,3 +123,26 @@ class MiniMaxClassical:
             return True
 
         return False
+
+    def game_finished_value(self, board):
+        """
+        Verifies is the game ended
+        :return:
+        """
+
+        if board.is_checkmate():
+            if board.outcome().winner == ch.WHITE:
+                return 200
+            else:
+                return -200
+
+        elif board.is_stalemate():
+            return 0
+
+        elif board.is_insufficient_material():
+            return 0
+
+        elif board.can_claim_threefold_repetition():
+            return 0
+
+        return 0
