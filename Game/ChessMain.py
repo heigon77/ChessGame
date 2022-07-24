@@ -165,12 +165,12 @@ class Game:
                     self.fir_click = self.sec_click = None
         return
 
-    def engine_choose_move(self):
+    def engine_choose_move(self, color):
         """
         The engine update the board
         :return:
         """
-        move = self.chess_engine.choose_move(self.board)
+        move = self.chess_engine.choose_move(self.board, color)
         if move:
             self.board.push(move)
 
@@ -296,10 +296,10 @@ class Game:
                     if self.board.turn == ch.WHITE:
                         self.player_choose_move(event)
                     else:
-                        self.engine_choose_move()
+                        self.engine_choose_move(ch.BLACK)
                 elif self.player_color == ch.BLACK:
                     if self.board.turn == ch.WHITE:
-                        self.engine_choose_move()
+                        self.engine_choose_move(ch.WHITE)
                     else:
                         self.player_choose_move(event)
 
