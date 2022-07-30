@@ -285,26 +285,34 @@ class Game:
         if self.chess_dot_com is not None:
             self.board.set_fen(self.fen)
 
+        clock = pg.time.Clock()
+        timer = 0
+        dt = 0
+
         playing = True
         while playing:
+            timer -= dt
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     sys.exit()
                 elif self.game_finished():
                     playing = False
-                elif self.player_color == ch.WHITE:
-                    if self.board.turn == ch.WHITE:
-                        self.player_choose_move(event)
-                    else:
-                        self.engine_choose_move(ch.BLACK)
-                elif self.player_color == ch.BLACK:
-                    if self.board.turn == ch.WHITE:
-                        self.engine_choose_move(ch.WHITE)
-                    else:
-                        self.player_choose_move(event)
+                elif self.player_color == ch.WHITE and self.board.turn == ch.WHITE:
+                    self.player_choose_move(event)
+                    timer = 0.01
+                elif self.player_color == ch.BLACK and self.board.turn == ch.BLACK:
+                    self.player_choose_move(event)
+                    timer = 0.01
+
+            if self.player_color == ch.WHITE and self.board.turn == ch.BLACK and timer <= 0:
+                self.engine_choose_move(ch.BLACK)
+            elif self.player_color == ch.BLACK and self.board.turn == ch.WHITE and timer <= 0:
+                self.engine_choose_move(ch.WHITE)
 
             self.draw_chess_board()
 
             self.draw_pieces()
 
             pg.display.flip()
+
+            dt = clock.tick(60) / 1000

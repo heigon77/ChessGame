@@ -5,7 +5,7 @@ import random as rd
 class MiniMaxClassical:
 
     def __init__(self):
-        self.depth_lim = 3
+        self.depth_lim = 4
         self.MAX = 1000
         self.MIN = -1000
 
@@ -98,23 +98,23 @@ class MiniMaxClassical:
         value += 1 * (self.count_pieces(board, ch.PAWN, ch.WHITE) - self.count_pieces(board, ch.PAWN, ch.BLACK))
 
         # 27 28 35 36
-        white_attk = 0
-        black_attk = 0
-        for i in range(64):
-            if i == 27 or 28 or 35 or 36:
-                if board.is_attacked_by(ch.WHITE, i):
-                    white_attk += 0.1
-                if board.is_attacked_by(ch.BLACK, i):
-                    black_attk += 0.1
-            else:
-                if board.is_attacked_by(ch.WHITE, i):
-                    white_attk += 0.05
-                if board.is_attacked_by(ch.BLACK, i):
-                    black_attk += 0.05
-
-
-
-        value += white_attk - black_attk
+        # white_attk = 0
+        # black_attk = 0
+        # for i in range(64):
+        #     if i == 27 or 28 or 35 or 36:
+        #         if board.is_attacked_by(ch.WHITE, i):
+        #             white_attk += 0.1
+        #         if board.is_attacked_by(ch.BLACK, i):
+        #             black_attk += 0.1
+        #     else:
+        #         if board.is_attacked_by(ch.WHITE, i):
+        #             white_attk += 0.05
+        #         if board.is_attacked_by(ch.BLACK, i):
+        #             black_attk += 0.05
+        #
+        #
+        #
+        # value += white_attk - black_attk
 
         return value
 
