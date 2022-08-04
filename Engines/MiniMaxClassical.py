@@ -5,7 +5,7 @@ import random as rd
 class MiniMaxClassical:
 
     def __init__(self):
-        self.depth_lim = 4
+        self.depth_lim = 3
         self.MAX = 1000
         self.MIN = -1000
 
@@ -31,17 +31,17 @@ class MiniMaxClassical:
 
     # Returns optimal value for current player
     # (Initially called for root and maximizer)
-    def minimax(self, depth, board, maximizingPlayer, alpha, beta):
+    def minimax(self, depth, board, maximizing_player, alpha, beta):
 
         moves = list(board.legal_moves)
 
         # Terminating condition. i.e.
         # leaf node is reached
-        print(self.evaluation(board), maximizingPlayer, depth)
+        # print(self.evaluation(board), maximizing_player, depth)
         if depth == self.depth_lim or len(moves) == 0:
             return self.evaluation(board), None
 
-        if maximizingPlayer:
+        if maximizing_player:
 
             best = self.MIN
             best_move = rd.choice(moves)
@@ -98,23 +98,21 @@ class MiniMaxClassical:
         value += 1 * (self.count_pieces(board, ch.PAWN, ch.WHITE) - self.count_pieces(board, ch.PAWN, ch.BLACK))
 
         # 27 28 35 36
-        # white_attk = 0
-        # black_attk = 0
-        # for i in range(64):
-        #     if i == 27 or 28 or 35 or 36:
-        #         if board.is_attacked_by(ch.WHITE, i):
-        #             white_attk += 0.1
-        #         if board.is_attacked_by(ch.BLACK, i):
-        #             black_attk += 0.1
-        #     else:
-        #         if board.is_attacked_by(ch.WHITE, i):
-        #             white_attk += 0.05
-        #         if board.is_attacked_by(ch.BLACK, i):
-        #             black_attk += 0.05
-        #
-        #
-        #
-        # value += white_attk - black_attk
+        white_attk = 0
+        black_attk = 0
+        for i in range(64):
+            if i == 27 or 28 or 35 or 36:
+                if board.is_attacked_by(ch.WHITE, i):
+                    white_attk += 0.05
+                if board.is_attacked_by(ch.BLACK, i):
+                    black_attk += 0.05
+            else:
+                if board.is_attacked_by(ch.WHITE, i):
+                    white_attk += 0.01
+                if board.is_attacked_by(ch.BLACK, i):
+                    black_attk += 0.01
+
+        value += white_attk - black_attk
 
         return value
 
