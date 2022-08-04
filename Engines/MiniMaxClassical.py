@@ -8,6 +8,7 @@ class MiniMaxClassical:
         self.depth_lim = 3
         self.MAX = 1000
         self.MIN = -1000
+        self.castled = False
 
     def choose_move(self, board: ch.Board(), color):
         """
@@ -22,8 +23,8 @@ class MiniMaxClassical:
             max_player = False
 
         move = self.minimax(0, board, max_player, self.MIN, self.MAX)
-        nboard = board.copy()
-        nboard.push(move[1])
+        if board.is_castling(move[1]):
+            self.castled = True
 
         print("Escolhido: ", self.evaluation(board), move[1])
 
@@ -113,6 +114,24 @@ class MiniMaxClassical:
                     black_attk += 0.01
 
         value += white_attk - black_attk
+
+        value += self.king_protection(board)
+
+        return value
+
+    def king_protection(self, board):
+        value = 0
+        kw_sqr = board.pieces(piece_type=ch.KING, color=ch.WHITE)
+        if ch.G1 in kw_sqr and not self.castled:
+            value += 0.25
+        elif ch.C1 in kw_sqr and not self.castled:
+            value += 0.15
+
+        kb_sqr = board.pieces(piece_type=ch.KING, color=ch.BLACK)
+        if ch.G8 in kb_sqr and not self.castled:
+            value -= 0.25
+        elif ch.C8 in kb_sqr and not self.castled:
+            value -= 0.15
 
         return value
 
