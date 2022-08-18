@@ -136,7 +136,7 @@ class MiniMaxClassical:
         return value
 
     def count_pieces(self, board, piece, color):
-        pieces = board.pieces(piece_type=piece, color=color).tolist().count(True)
+        pieces = len(board.pieces(piece_type=piece, color=color))
 
         return pieces
 
