@@ -22,29 +22,38 @@ class Autoencoder(nn.Module):
 
         self.encoder = nn.Sequential(
             nn.Linear(773, 600),
-            nn.ReLU(),
+            nn.BatchNorm1d(600),
+            nn.LeakyReLU(),
             nn.Linear(600, 400),
-            nn.ReLU(),
+            nn.BatchNorm1d(400),
+            nn.LeakyReLU(),
             nn.Linear(400, 200),
-            nn.ReLU(),
-            nn.Linear(200, 100)
+            nn.BatchNorm1d(200),
+            nn.LeakyReLU(),
+            nn.Linear(200, 100),
+            nn.BatchNorm1d(100),
+            nn.LeakyReLU()
         )
         
         self.decoder = nn.Sequential(
             nn.Linear(100, 200),
-            nn.ReLU(),
+            nn.BatchNorm1d(200),
+            nn.LeakyReLU(),
             nn.Linear(200, 400),
-            nn.ReLU(),
+            nn.BatchNorm1d(400),
+            nn.LeakyReLU(),
             nn.Linear(400, 600),
-            nn.ReLU(),
+            nn.BatchNorm1d(600),
+            nn.LeakyReLU(),
             nn.Linear(600, 773),
+            nn.BatchNorm1d(773),
             nn.Sigmoid()
         )
 
     def forward(self, x):
         encoded = self.encoder(x)
         decoded = self.decoder(encoded)
-        return decoded, encoded
+        return decoded, encodeds
 
 class GamesDataset(Dataset):
     def __init__(self):
