@@ -58,7 +58,7 @@ class DeepChessEngine:
         else:
             max_player = False
 
-        score, move = self.minimax(self.depth_lim, board)
+        score, move = self.alphabeta(board, self.depth_lim)
 
         if board.is_castling(move):
             self.castled = True
@@ -89,13 +89,13 @@ class DeepChessEngine:
 
         return bitboard2D
     
-    def alphabeta(board, depth, alpha, beta, white, orig_board):
+    def alphabeta(self, board, depth, alpha, beta, white, orig_board):
         if depth == 0:
             return compare_boards(board, orig_board), None
         if white:
             v = -100 # very (relatively) small number
             moves = board.generate_legal_moves()
-            moves = list(moves)
+            moves = list(moves)s
             best_move = None
             for move in moves:
                 new_board = board.copy()
