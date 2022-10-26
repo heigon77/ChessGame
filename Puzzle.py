@@ -1,8 +1,11 @@
 import chess as ch
 import random as rd
 import pandas as pd
-from Engines.MiniMaxClassical import MiniMaxClassical
 
+
+from Engines.DumbChessEngine import DumbChessEngine
+from Engines.MiniMaxClassical import MiniMaxClassical
+from Engines.DeepChessEngine import DeepChessEngine
 
 class Puzzle:
 
@@ -29,19 +32,21 @@ class Puzzle:
         
         return True
 
-df = pd.read_csv('FilteredPuzzles.csv')
+df = pd.read_csv('Data\FilteredPuzzles.csv')
 
 num_puzzles = 0
-f = open("MinimaxPuzzles.csv", "w")
+f = open("Data\DeepChessCCRLPuzzlesAlphaBetaD1.csv", "w")
 f.write("PuzzleId,Rating,Themes,OpeningFamily,Solved\n")
 for i in range(5000):
 
     if num_puzzles % 5 == 0:
         print(num_puzzles, (num_puzzles*100/5000))
+        f.close()
+        f = open("Data\DeepChessCCRLPuzzlesAlphaBetaD1.csv", "a")
     
     num_puzzles += 1
 
-    solved = Puzzle(MiniMaxClassical(), df.Moves[i].split(),df.FEN[i]).can_solve_puzzle()
+    solved = Puzzle(DeepChessEngine(), df.Moves[i].split(),df.FEN[i]).can_solve_puzzle()
 
     f.write(f"{df.PuzzleId[i]},{df.Rating[i]},{df.Themes[i]},{df.OpeningFamily[i]},{solved}\n")
 f.close()

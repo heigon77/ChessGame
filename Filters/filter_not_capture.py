@@ -41,15 +41,15 @@ def get_result(game):
     else:
         return 0
 
-games = open("Data/lichess_db_standard_rated_2022-01.pgn")
+games = open("Data/CCRL-4040.[1462263].pgn")
 
 num_games = 0
 num_active = 0
-f = open("Data/data_bits_normal_not_capture.csv", "w")
+f = open("Data/data_bits_normal_not_capture_computerchess30.csv", "w")
 
-for i in range(102110423):
+for i in range(1462262):
     if num_games % 1000 == 0:
-        print(num_games, num_games * 100 / 102110423, num_active)
+        print(num_games, num_games * 100 / 1462262, num_active)
         
     bitboards = []
     num_games += 1
@@ -58,11 +58,20 @@ for i in range(102110423):
 
     result = get_result(game)
 
-    rating = (int(game.headers["WhiteElo"]) + int(game.headers["BlackElo"]))//2
+    try:
+        rating = (int(game.headers["WhiteElo"]) + int(game.headers["BlackElo"]))//2
+    except KeyError:
+        try:
+            rating = int(game.headers["WhiteElo"])
+        except KeyError:
+            try:
+                rating = int(game.headers["BlackElo"])
+            except KeyError:
+                rating = 0
 
     len_bits = len(list(game.mainline_moves()))-2
 
-    if (len_bits >= 16 and "Bullet" not in game.headers["Event"] and rating > 2400 and "1/2" not in game.headers["Result"] and "Normal" ==  game.headers["Termination"]):
+    if (len_bits >= 12 and rating > 3000 and "1/2" not in game.headers["Result"]):
         num_active += 1
 
         board = game.board()
@@ -83,11 +92,11 @@ for i in range(102110423):
         
         pos = [0] * 6
 
-        pos[0] = rd.randint(2, len_bits//3)
+        pos[0] = rd.randint(4, 2*len_bits//3)
         tries = 0 
         while (pos[0] in captures and tries < 10):
             tries += 1
-            pos[0] = rd.randint(2, len_bits//3)
+            pos[0] = rd.randint(5, 2*len_bits//3)
 
         pos[1] = rd.randint((len_bits//3)+1,2*len_bits//3)
         tries = 0 

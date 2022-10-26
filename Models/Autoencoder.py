@@ -17,28 +17,28 @@ class Autoencoder(nn.Module):
         self.encoder = nn.Sequential(
             nn.Linear(773, 600),
             nn.BatchNorm1d(600),
-            nn.LeakyReLU(),
+            nn.ReLU(),
             nn.Linear(600, 400),
             nn.BatchNorm1d(400),
-            nn.LeakyReLU(),
+            nn.ReLU(),
             nn.Linear(400, 200),
             nn.BatchNorm1d(200),
-            nn.LeakyReLU(),
+            nn.ReLU(),
             nn.Linear(200, 100),
             nn.BatchNorm1d(100),
-            nn.LeakyReLU()
+            nn.ReLU()
         )
         
         self.decoder = nn.Sequential(
             nn.Linear(100, 200),
             nn.BatchNorm1d(200),
-            nn.LeakyReLU(),
+            nn.ReLU(),
             nn.Linear(200, 400),
             nn.BatchNorm1d(400),
-            nn.LeakyReLU(),
+            nn.ReLU(),
             nn.Linear(400, 600),
             nn.BatchNorm1d(600),
-            nn.LeakyReLU(),
+            nn.ReLU(),
             nn.Linear(600, 773),
             nn.BatchNorm1d(773),
             nn.Sigmoid()
@@ -49,23 +49,11 @@ class Autoencoder(nn.Module):
         decoded = self.decoder(encoded)
         return decoded, encoded
 
-class GamesDatasetTrain(Dataset):
-    def __init__(self, dataset):
-        self.x = torch.from_numpy(dataset[:,0:773])
-        self.y = torch.from_numpy(dataset[:,[773]])
-        self.n_samples = dataset.shape[0]
-    
-    def __getitem__(self, index):
-        return self.x[index], self.y[index]
-
-    def __len__(self):
-        return self.n_samples
-
-class GamesDatasetTest(Dataset):
-    def __init__(self, dataset):
-        self.x = torch.from_numpy(dataset[:,0:773])
-        self.y = torch.from_numpy(dataset[:,[773]])
-        self.n_samples = dataset.shape[0]
+class GamesDataset(Dataset):
+    def __init__(self, games):
+        self.x = torch.from_numpy(games[:,0:773])
+        self.y = torch.from_numpy(games[:,[773]])
+        self.n_samples = games.shape[0]
     
     def __getitem__(self, index):
         return self.x[index], self.y[index]

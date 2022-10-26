@@ -1,0 +1,27 @@
+
+Draw by repetition
+. . . R . . . .
+. . . . . k . .
+. . . . . . . .
+. . . . . . . .
+. p . p K . . .
+. . . p . . . .
+. P . P . . . .
+. . B . . . . Q
+3R4/5k2/8/8/1p1pK3/3p4/1P1P4/2B4Q b - - 9 43
+
+Checkmate - white win
+. . . . . . . .
+. . R . . . . .
+. . . R . k . .
+. . . . . . . .
+. . . . P P . .
+. . . . . . . .
+P . . . . . K P
+. . B . . . . .
+8/2R5/3R1k2/8/4PP2/8/P5KP/2B5 b - - 2 32
+
+Epoch: 999 
+Loss: tensor(0.2993, device='cuda:0', requires_grad=True)
+
+Test set accuracy: 78.946

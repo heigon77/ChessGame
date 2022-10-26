@@ -64,7 +64,7 @@ class EngineVsEngine:
 
     def play(self):
 
-        for i in range(4):
+        for i in range(1):
 
             self.board = ch.Board()
             playing = True

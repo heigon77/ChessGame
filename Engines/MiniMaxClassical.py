@@ -5,7 +5,7 @@ import random as rd
 class MiniMaxClassical:
 
     def __init__(self):
-        self.depth_lim = 3
+        self.depth_lim = 1
         self.MAX = 1000
         self.MIN = -1000
         self.castled = False
