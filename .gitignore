@@ -2,3 +2,5 @@
 *.pgn
 *.npy
 *.pth
+*.pyc
+*/__pycache__
