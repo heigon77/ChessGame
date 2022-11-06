@@ -6,6 +6,12 @@ from Engines.DeepChessEngine import DeepChessEngine
 from Game.DailyPuzzle import DailyPuzzle
 from Game.EngineVsEngine import EngineVsEngine
 
+from Engines.testmodel import TestModel
+
+import chess as ch
+import random as rd
+import numpy as np
+
 import chess as ch
 
 if __name__ == '__main__':
@@ -32,6 +38,25 @@ if __name__ == '__main__':
     #     else:
     #         Game(MiniMaxClassical(), ch.WHITE).play()
 
-    Game(DeepChessEngine(), ch.BLACK).play()
+    Game(DeepChessEngine(),  ch.WHITE).play()
     # EngineVsEngine(MiniMaxClassical(), DeepChessEngine()).play()
     # EngineVsEngine(DeepChessEngine(), MiniMaxClassical()).play()
+
+    # EngineVsEngine(DumbChessEngine(), DeepChessEngine()).play()
+    # EngineVsEngine(DeepChessEngine(), DumbChessEngine()).play()
+
+
+    # board1 = ch.Board()
+    # board1.push_san("b1a3")
+
+    # board2 = ch.Board()
+    # board2.push_san("e2e4")
+
+    # testModel = TestModel()
+
+    # print(board1)
+    # print(board2)
+
+    # result = testModel.compare_positions(board1, board2)
+
+    # print(result)

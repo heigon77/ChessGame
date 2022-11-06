@@ -1,27 +1,66 @@
 
-Draw by repetition
-. . . R . . . .
-. . . . . k . .
-. . . . . . . .
-. . . . . . . .
-. p . p K . . .
-. . . p . . . .
-. P . P . . . .
-. . B . . . . Q
-3R4/5k2/8/8/1p1pK3/3p4/1P1P4/2B4Q b - - 9 43
+Checkmate - black win
+r n . . k b . r
+p . p p . . p p
+. . b . p . . .
+. . . . p . P .
+. . . . . . n .
+. . . P . . . .
+. . . . P P . P
+. . . q . K . .
+rn2kb1r/p1pp2pp/2b1p3/4p1P1/6n1/3P4/4PP1P/3q1K2 w kq - 2 18
 
 Checkmate - white win
+r . B k . b . r
+p . . Q p n p p
+. . . p . . . .
 . . . . . . . .
-. . R . . . . .
-. . . R . k . .
 . . . . . . . .
-. . . . P P . .
-. . . . . . . .
-P . . . . . K P
-. . B . . . . .
-8/2R5/3R1k2/8/4PP2/8/P5KP/2B5 b - - 2 32
+. . . . P . . .
+P P P P . P P P
+R N B . K . N R
+r1Bk1b1r/p2Qpnpp/3p4/8/8/4P3/PPPP1PPP/RNB1K1NR b KQ - 2 11
 
-Epoch: 999 
-Loss: tensor(0.2993, device='cuda:0', requires_grad=True)
+Draw by repetition
+. . . . . . k .
+. . . . . . . .
+. . . . . . . .
+. . . . . . P .
+p . . . q . . K
+p . . . . . . .
+. . . . . . . .
+. . . . . . . .
+6k1/8/8/6P1/p3q2K/p7/8/8 w - - 11 50
 
-Test set accuracy: 78.946
+Checkmate - white win
+r n b q k b . r
+p p p p p . . p
+. . . . . p . .
+. . . . . . p Q
+. . . . . . . .
+. . . . P . . .
+P P P P . P P P
+R N B . K B N R
+rnbqkb1r/ppppp2p/5p2/6pQ/8/4P3/PPPP1PPP/RNB1KBNR b KQkq - 1 4
+
+Draw by repetition
+. . . . . . . .
+p p . . . . k p
+. . n . . . . p
+. . . p . . . K
+. . b p . . . .
+. . . . . . . .
+. . . . . . . .
+. . . . . r . .
+8/pp4kp/2n4p/3p3K/2bp4/8/8/5r2 w - - 12 34
+
+Checkmate - white win
+r . B . k b n r
+p . p Q p p p p
+. . . p . . . .
+. p . . . . . .
+. . . . . . . .
+. . . . P . . .
+P P P P . P P P
+R N B . K . N R
+r1B1kbnr/p1pQpppp/3p4/1p6/8/4P3/PPPP1PPP/RNB1K1NR b KQkq - 0 5

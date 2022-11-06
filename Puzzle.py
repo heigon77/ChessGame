@@ -35,14 +35,16 @@ class Puzzle:
 df = pd.read_csv('Data\FilteredPuzzles.csv')
 
 num_puzzles = 0
-f = open("Data\DeepChessCCRLPuzzlesAlphaBetaD1.csv", "w")
+PATH = "Data\DeepChessLichessDepth3.csv"
+f = open(PATH, "w")
+
 f.write("PuzzleId,Rating,Themes,OpeningFamily,Solved\n")
 for i in range(5000):
 
     if num_puzzles % 5 == 0:
         print(num_puzzles, (num_puzzles*100/5000))
         f.close()
-        f = open("Data\DeepChessCCRLPuzzlesAlphaBetaD1.csv", "a")
+        f = open(PATH, "a")
     
     num_puzzles += 1
 

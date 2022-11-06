@@ -18,17 +18,13 @@ from Models.Siamese import Siamese
 class DeepChessEngine:
 
     def __init__(self):
-        self.depth_lim = 1
+        self.depth_lim = 3
 
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-        self.MAX = None
-
-        self.MIN = None
+        checkpoint = torch.load("Models\checkpointNew.pth")
 
         self.DBN = Autoencoder()
-        checkpoint = torch.load("Models\checkpointNewCCRL.pth")
-
         self.DBN.load_state_dict(checkpoint['modelAE_state_dict'])
         self.DBN.to(self.device)
         self.DBN.eval()
@@ -50,20 +46,15 @@ class DeepChessEngine:
         :return:
         """
 
-        self.MAX = board.copy()
-
-        self.MIN = board.copy()
         if color == ch.WHITE:
             max_player = True
         else:
             max_player = False
 
-        score, move = self.alphabeta(board, self.depth_lim)
+        score, move = self.alphabeta(board, self.depth_lim, -100, 100, max_player, board)
 
-        if board.is_castling(move):
-            self.castled = True
 
-        print("Escolhido: ", move)
+        print("Escolhido: ", score, move)
 
         return move
     
@@ -90,43 +81,60 @@ class DeepChessEngine:
         return bitboard2D
     
     def alphabeta(self, board, depth, alpha, beta, white, orig_board):
+
         if depth == 0:
-            return compare_boards(board, orig_board), None
+            return self.compare_positions(board, orig_board), None
+
         if white:
-            v = -100 # very (relatively) small number
-            moves = board.generate_legal_moves()
-            moves = list(moves)s
+
+            v = -100
+            moves = board.legal_moves
+            moves = list(moves)
             best_move = None
+
             for move in moves:
+
                 new_board = board.copy()
                 new_board.push(move)
-                candidate_v, _ = alphabeta(new_board, depth - 1, alpha, beta, False, orig_board)
+                candidate_v, _ = self.alphabeta(new_board, depth - 1, alpha, beta, False, orig_board)
+
                 if candidate_v >= v:
                     v = candidate_v
                     best_move = move
                 else:
                     pass
+
                 alpha = max(alpha, v)
+
                 if beta <= alpha:
                     break
+                
             return v, best_move
+
         else:
-            v = 100 # very (relatively) large number
-            moves = board.generate_legal_moves()
+
+            v = 100
+            moves = board.legal_moves
             moves = list(moves)
             best_move = None
+
             for move in moves:
+
                 new_board = board.copy()
                 new_board.push(move)
-                candidate_v, _ = alphabeta(new_board, depth - 1, alpha, beta, False, orig_board)
+                candidate_v, _ = self.alphabeta(new_board, depth - 1, alpha, beta, True, orig_board)
+
                 if candidate_v <= v:
                     v = candidate_v
                     best_move = move
                 else:
                     pass
+
                 beta = min(beta, v)
+
                 if beta <= alpha:
                     break
+
             return v, best_move
     
     def compare_positions(self, board1, board2):

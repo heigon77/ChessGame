@@ -5,7 +5,7 @@ import random as rd
 class MiniMaxClassical:
 
     def __init__(self):
-        self.depth_lim = 1
+        self.depth_lim = 3
         self.MAX = 1000
         self.MIN = -1000
         self.castled = False
@@ -47,7 +47,7 @@ class MiniMaxClassical:
             best = self.MIN
             best_move = rd.choice(moves)
 
-            # Recur for left and right children
+            # Recur for children
             for i in moves:
                 new_board = board.copy()
                 new_board.push(i)
@@ -66,11 +66,11 @@ class MiniMaxClassical:
             return best, best_move
 
         else:
+            
             best = self.MAX
             best_move = rd.choice(moves)
 
-            # Recur for left and
-            # right children
+            # Recur for children
             for i in moves:
                 new_board = board.copy()
                 new_board.push(i)
