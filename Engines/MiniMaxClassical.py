@@ -5,10 +5,13 @@ import random as rd
 class MiniMaxClassical:
 
     def __init__(self):
-        self.depth_lim = 3
+        self.depth_lim = 4
         self.MAX = 1000
         self.MIN = -1000
         self.castled = False
+    
+    def __str__(self):
+        return "MiniMaxClassical"
 
     def choose_move(self, board: ch.Board(), color):
         """
@@ -26,7 +29,7 @@ class MiniMaxClassical:
         if board.is_castling(move[1]):
             self.castled = True
 
-        print("Escolhido: ", self.evaluation(board), move[1])
+        # print("Escolhido: ", self.evaluation(board), move[1])
 
         return move[1]
 

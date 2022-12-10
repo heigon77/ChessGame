@@ -15,14 +15,14 @@ from Models.Autoencoder import Autoencoder
 from Models.Siamese import Siamese
 
 
-class DeepChessEngine:
+class DeepChessComputer:
 
     def __init__(self):
         self.depth_lim = 3
 
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-        checkpoint = torch.load("Models\Checkpoint\checkpointDeepChessLichess200.pth")
+        checkpoint = torch.load("Models\Checkpoint\checkpointDeepChessComputerChess200.pth")
 
         self.DBN = Autoencoder()
         self.DBN.load_state_dict(checkpoint['modelAE_state_dict'])
@@ -39,7 +39,7 @@ class DeepChessEngine:
         self.castled = False
     
     def __str__(self):
-        return "DeepChessLichess"
+        return "DeepChessComputer"
 
     def choose_move(self, board: ch.Board(), color):
         """

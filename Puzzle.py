@@ -35,7 +35,7 @@ class Puzzle:
 df = pd.read_csv('Data\FilteredPuzzles.csv')
 
 num_puzzles = 0
-PATH = "Data\DeepChessLichessDepth3.csv"
+PATH = "Data\DeepChessComputerChessDepth4_200.csv"
 f = open(PATH, "w")
 
 f.write("PuzzleId,Rating,Themes,OpeningFamily,Solved\n")

@@ -3,6 +3,7 @@ from Game.ChessMain import Game
 from Engines.DumbChessEngine import DumbChessEngine
 from Engines.MiniMaxClassical import MiniMaxClassical
 from Engines.DeepChessEngine import DeepChessEngine
+from Engines.DeepChessComputer import DeepChessComputer
 from Game.DailyPuzzle import DailyPuzzle
 from Game.EngineVsEngine import EngineVsEngine
 
@@ -39,11 +40,11 @@ if __name__ == '__main__':
     #         Game(MiniMaxClassical(), ch.WHITE).play()
 
     Game(DeepChessEngine(),  ch.WHITE).play()
-    # EngineVsEngine(MiniMaxClassical(), DeepChessEngine()).play()
-    # EngineVsEngine(DeepChessEngine(), MiniMaxClassical()).play()
+    # EngineVsEngine(DeepChessComputer(), DeepChessEngine()).play()
+    # EngineVsEngine(DeepChessEngine(), DeepChessComputer()).play()
 
-    # EngineVsEngine(DumbChessEngine(), DeepChessEngine()).play()
-    # EngineVsEngine(DeepChessEngine(), DumbChessEngine()).play()
+    # EngineVsEngine(MiniMaxClassical(), DeepChessComputer()).play()
+    # EngineVsEngine(DeepChessComputer(), MiniMaxClassical()).play()
 
 
     # board1 = ch.Board()
@@ -60,3 +61,8 @@ if __name__ == '__main__':
     # result = testModel.compare_positions(board1, board2)
 
     # print(result)
+
+    # arr = np.arange(100)
+    # print(arr)
+    # games_wins_crop = arr[np.random.choice(len(arr), size=50, replace=False)]
+    # print(games_wins_crop)

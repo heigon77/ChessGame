@@ -2,7 +2,7 @@ f1 = open('Data/data_bits_normal_not_capture_computerchess26.csv', 'r')
 print("Start reading")
 Lines = f1.readlines()
 f1.close()
-f2 = open('Data/data_bits_normal_not_capture_np_26.csv', 'w')
+f2 = open('Data/data_bits_normal_not_capture_np_computerchess.csv', 'w')
 
 total = len(Lines)
 num = 0

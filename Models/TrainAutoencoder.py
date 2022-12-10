@@ -19,7 +19,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 np.random.seed(42)
 
 print("Loading Data")
-games = np.load('Data\data_bits_normal.npy')
+games = np.load('Data\SubData\data_bits_normal.npy')
 np.random.shuffle(games)
 
 datasetTrain = GamesDataset(games[:int(len(games)*.98)])
@@ -38,12 +38,14 @@ optimizer = torch.optim.Adam(model.parameters(), lr=0.005)
 num_epochs = 200
 model.train()
 
-PATH = 'checkpointDBN.pth'
-file_out = open('Data/outputsDBN.csv','w')
+PATH = 'Models/Checkpoint/checkpointDBNlichessnormal.pth'
+file_out = open('Data/outputsDBNlichessnormal.csv','w')
 file_out.write(f"Epoch,Loss\n")
 
 
+print("Start Training")
 for epoch in range(num_epochs):
+
     for (pos,_) in dataLoaderTrain:
 
         pos = pos.to(device)
@@ -100,8 +102,6 @@ print(f"====> Test set diff: {total_diff_all}")
 print(f"====> Test set diff perccentage: {total_diff_percent}")
 print("Finish Testing")
 
-print("Saving model")
-torch.save(model.state_dict(), "Models\Autoencoder.pth")
 
 runningTime = (time.time() - start_time)
 print(f"--- {runningTime:2f}s seconds ---")

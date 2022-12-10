@@ -41,15 +41,15 @@ def get_result(game):
     else:
         return 0
 
-games = open("Data/lichess_db_standard_rated_2022-01.pgn")
+games = open("Data\CCRL-4040.[1462263].pgn")
 
 num_games = 0
 num_active = 0
-f = open("Data/data_bits_normal.csv", "w")
+# f = open("Data/data_bits_normal.csv", "w")
 
-for i in range(102110423):
+for i in range(149283):
     if num_games % 1000 == 0:
-        print(num_games, num_games * 100 / 102110423, num_active)
+        print(num_games, num_games * 100 / 149283, num_active)
         
     bitboards = []
     num_games += 1
@@ -65,41 +65,41 @@ for i in range(102110423):
     if (len_bits >= 14 and "Bullet" not in game.headers["Event"] and rating > 2400 and "1/2" not in game.headers["Result"] and "Normal" ==  game.headers["Termination"]):
         num_active += 1
 
-        board = game.board()
+        # board = game.board()
 
-        pos = [0] * 6
+        # pos = [0] * 6
 
-        pos[0] = rd.randint(2, len_bits//3)
+        # pos[0] = rd.randint(2, len_bits//3)
 
-        pos[1] = rd.randint((len_bits//3)+1,2*len_bits//3)
-        pos[2] = rd.randint((len_bits//3)+1,2*len_bits//3) 
-        while (pos[2]==pos[1]):
-            pos[2] = rd.randint((len_bits//3)+1,2*len_bits//3)
+        # pos[1] = rd.randint((len_bits//3)+1,2*len_bits//3)
+        # pos[2] = rd.randint((len_bits//3)+1,2*len_bits//3) 
+        # while (pos[2]==pos[1]):
+        #     pos[2] = rd.randint((len_bits//3)+1,2*len_bits//3)
 
-        pos[3] = rd.randint((2*len_bits//3)+1,len_bits)
-        pos[4] = rd.randint((2*len_bits//3)+1,len_bits)
-        while (pos[4]==pos[3]):
-            pos[4] = rd.randint((2*len_bits//3)+1,len_bits)
+        # pos[3] = rd.randint((2*len_bits//3)+1,len_bits)
+        # pos[4] = rd.randint((2*len_bits//3)+1,len_bits)
+        # while (pos[4]==pos[3]):
+        #     pos[4] = rd.randint((2*len_bits//3)+1,len_bits)
         
-        pos[5] = len_bits + 1
-        pos.sort()
+        # pos[5] = len_bits + 1
+        # pos.sort()
 
-        should_get = 0
-        ind = 0
-        for move in game.mainline_moves():
-            board.push(move)
+        # should_get = 0
+        # ind = 0
+        # for move in game.mainline_moves():
+        #     board.push(move)
 
-            if(should_get == pos[ind]):
-                ind += 1
-                bitboard = get_bitboard(board)
-                bitboards.append(bitboard)
+        #     if(should_get == pos[ind]):
+        #         ind += 1
+        #         bitboard = get_bitboard(board)
+        #         bitboards.append(bitboard)
 
-            should_get += 1
+        #     should_get += 1
             
-        for bitboard in bitboards:
-            for j in range(len(bitboard)-1):
-                f.write(f"{bitboard[j]} ")
-            f.write(f"{bitboard[-1]}")
-            f.write(f",{result}\n")
+        # for bitboard in bitboards:
+        #     for j in range(len(bitboard)-1):
+        #         f.write(f"{bitboard[j]} ")
+        #     f.write(f"{bitboard[-1]}")
+        #     f.write(f",{result}\n")
 
 f.close()

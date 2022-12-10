@@ -51,8 +51,8 @@ class Autoencoder(nn.Module):
 
 class GamesDataset(Dataset):
     def __init__(self, games):
-        self.x = torch.from_numpy(games[:,0:773])
-        self.y = torch.from_numpy(games[:,[773]])
+        self.x = torch.from_numpy(games[:,0:773]).type(torch.FloatTensor)
+        self.y = torch.from_numpy(games[:,[773]]).type(torch.FloatTensor)
         self.n_samples = games.shape[0]
     
     def __getitem__(self, index):

@@ -1,4 +1,6 @@
 import chess as ch
+import chess.pgn as pgn
+from datetime import datetime
 
 
 class EngineVsEngine:
@@ -7,6 +9,9 @@ class EngineVsEngine:
         self.chess_engine_black = chess_engine_black
         self.chess_engine_white = chess_engine_white
         self.board = None
+        self.game = pgn.Game()
+        self.first = True
+        self.node = None
 
     def white_engine_choose_move(self):
         """
@@ -16,6 +21,11 @@ class EngineVsEngine:
         move = self.chess_engine_white.choose_move(self.board, ch.WHITE)
         if move:
             self.board.push(move)
+            if self.first:
+                self.first = False
+                self.node = self.game.add_variation(move)
+            else:
+                self.node = self.node.add_variation(move)
 
         return
 
@@ -27,6 +37,11 @@ class EngineVsEngine:
         move = self.chess_engine_black.choose_move(self.board, ch.BLACK)
         if move:
             self.board.push(move)
+            if self.first:
+                self.first = False
+                self.node = self.game.add_variation(move)
+            else:
+                self.node = self.node.add_variation(move)
 
         return
 
@@ -64,18 +79,28 @@ class EngineVsEngine:
 
     def play(self):
 
-        for i in range(1):
+        self.board = ch.Board()
+        self.game = pgn.Game()
+        self.game.headers["Event"] = "Engine vs Engine"
+        self.game.headers["Site"] = "Local"
+        self.game.headers["Date"] = datetime.today().strftime('%Y-%m-%d')
+        self.game.headers["Round"] = "0"
+        self.game.headers["White"] = str(self.chess_engine_white)
+        self.game.headers["Black"] = str(self.chess_engine_black)
 
-            self.board = ch.Board()
-            playing = True
-            while playing:
-                if self.game_finished():
-                    f = open("Results.txt", "a")
-                    f.write(str(self.board) + "\n")
-                    f.write(str(self.board.fen()) + "\n")
-                    f.close()
-                    playing = False
-                elif self.board.turn == ch.WHITE:
-                    self.white_engine_choose_move()
-                else:
-                    self.black_engine_choose_move()
+        playing = True
+        n = 0
+        while playing:
+            n +=1
+            print(n)
+            if self.game_finished():
+                f = open("Results.txt", "a")
+                f.write(str(self.game))
+                f.write(str(self.board) + "\n")
+                f.write(str(self.board.fen()) + "\n")
+                f.close()
+                playing = False
+            elif self.board.turn == ch.WHITE:
+                self.white_engine_choose_move()
+            else:
+                self.black_engine_choose_move()

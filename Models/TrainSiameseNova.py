@@ -26,7 +26,7 @@ model.to(device)
 model.train()
 
 modelAE = Autoencoder()
-checkpointDBN = torch.load("Models\checkpointDBN.pth")
+checkpointDBN = torch.load("Models\Checkpoint\checkpointDBNlichessnormal.pth")
 modelAE.load_state_dict(checkpointDBN['model_state_dict'])
 modelAE.to(device)
 modelAE.train()
@@ -34,19 +34,19 @@ modelAE.train()
 criterion = nn.BCELoss()
 optimizer = optim.Adam(list(model.parameters()) + list(modelAE.parameters()), lr=0.01)
 
-PATH = 'Models\checkpointNewCCRL.pth'
-file_out = open('Data\outputs.csv','w')
+PATH = "Models\Checkpoint\checkpointDeepChessComputerChess200.pth"
+file_out = open('Data\outputsDeepChessComputerChess200.csv','w')
 file_out.write(f"Epoch,Loss\n")
 
-num_epochs = 1000
+num_epochs = 200
 
 print("Start Training")
 for epoch in range(num_epochs):
 
-    games_wins = np.load('Data\data_bits_normal_wins_train_26.npy')
+    games_wins = np.load('Data\data_bits_normal_computerchess_wins_train.npy')
     games_wins_crop = games_wins[np.random.choice(len(games_wins), size=1000000, replace=False)]
 
-    games_loss = np.load('Data\data_bits_normal_loss_train_26.npy')
+    games_loss = np.load('Data\data_bits_normal_computerchess_loss_train.npy')
     games_loss_crop = games_loss[np.random.choice(len(games_loss), size=1000000, replace=False)]
 
 
@@ -96,10 +96,10 @@ test_loss = 0
 total = 0
 right = 0
 with torch.no_grad():
-    games_wins = np.load('Data\data_bits_normal_wins_test_26.npy').astype(float)
+    games_wins = np.load('Data\data_bits_normal_computerchess_wins_test.npy').astype(float)
     games_wins_crop = games_wins[np.random.choice(len(games_wins), size=50000, replace=False)]
 
-    games_loss = np.load('Data\data_bits_normal_loss_test_26.npy').astype(float)
+    games_loss = np.load('Data\data_bits_normal_computerchess_loss_test.npy').astype(float)
     games_loss_crop = games_loss[np.random.choice(len(games_loss), size=50000, replace=False)]
 
     datasetTest = GamesDataset(games_wins_crop, games_loss_crop)

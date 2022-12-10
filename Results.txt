@@ -1,66 +1,114 @@
 
-Checkmate - black win
-r n . . k b . r
-p . p p . . p p
-. . b . p . . .
-. . . . p . P .
-. . . . . . n .
-. . . P . . . .
-. . . . P P . P
-. . . q . K . .
-rn2kb1r/p1pp2pp/2b1p3/4p1P1/6n1/3P4/4PP1P/3q1K2 w kq - 2 18
-
-Checkmate - white win
-r . B k . b . r
-p . . Q p n p p
-. . . p . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . P . . .
-P P P P . P P P
-R N B . K . N R
-r1Bk1b1r/p2Qpnpp/3p4/8/8/4P3/PPPP1PPP/RNB1K1NR b KQ - 2 11
-
 Draw by repetition
-. . . . . . k .
-. . . . . . . .
-. . . . . . . .
-. . . . . . P .
-p . . . q . . K
-p . . . . . . .
-. . . . . . . .
-. . . . . . . .
-6k1/8/8/6P1/p3q2K/p7/8/8 w - - 11 50
+[Event "Engine vs Engine"]
+[Site "Local"]
+[Date "2022-12-01"]
+[Round "0"]
+[White "DeepChessLichess"]
+[Black "DeepChessComputer"]
+[Result "*"]
 
-Checkmate - white win
-r n b q k b . r
-p p p p p . . p
-. . . . . p . .
-. . . . . . p Q
-. . . . . . . .
-. . . . P . . .
-P P P P . P P P
-R N B . K B N R
-rnbqkb1r/ppppp2p/5p2/6pQ/8/4P3/PPPP1PPP/RNB1KBNR b KQkq - 1 4
-
-Draw by repetition
-. . . . . . . .
-p p . . . . k p
-. . n . . . . p
-. . . p . . . K
-. . b p . . . .
-. . . . . . . .
-. . . . . . . .
-. . . . . r . .
-8/pp4kp/2n4p/3p3K/2bp4/8/8/5r2 w - - 12 34
-
-Checkmate - white win
-r . B . k b n r
-p . p Q p p p p
-. . . p . . . .
+1. e4 d5 2. Qh5 dxe4 3. Bb5+ c6 4. Nc3 Nf6 5. Nd5 Nxh5 6. h3 cxb5 7. d4 Qxd5 8. Bf4 Nxf4 9. g3 Ng2+ 10. Kf1 e3 11. b3 g6 12. Rb1 a5 13. b4 axb4 14. g4 Rxa2 15. Re1 Rxc2 16. fxe3 Qd8 17. Nf3 b3 18. Rh2 Nxe3+ 19. Rxe3 Rc1+ 20. Kf2 Rc2+ 21. Kf1 Rc1+ 22. Kf2 Rc2+ *. n b q k b . r
+. p . . p p . p
+. . . . . . p .
 . p . . . . . .
+. . . P . . P .
+. p . . R N . P
+. . r . . K . R
 . . . . . . . .
-. . . . P . . .
-P P P P . P P P
-R N B . K . N R
-r1B1kbnr/p1pQpppp/3p4/1p6/8/4P3/PPPP1PPP/RNB1K1NR b KQkq - 0 5
+1nbqkb1r/1p2pp1p/6p1/1p6/3P2P1/1p2RN1P/2r2K1R/8 w k - 7 23
+
+Checkmate - black win
+[Event "Engine vs Engine"]
+[Site "Local"]
+[Date "2022-12-01"]
+[Round "0"]
+[White "DeepChessComputer"]
+[Black "DeepChessLichess"]
+[Result "*"]
+
+1. e4 e5 2. Nf3 Qe7 3. a4 Nh6 4. h3 Qe6 5. Na3 Rg8 6. Bb5 f6 7. Ke2 a6 8. d4 exd4 9. b3 Qxe4+ 10. Kd2 Bb4+ 11. c3 Bxc3# *r n b . k . r .
+. p p p . . p p
+p . . . . p . n
+. B . . . . . .
+P . . p q . . .
+N P b . . N . P
+. . . K . P P .
+R . B Q . . . R
+rnb1k1r1/1ppp2pp/p4p1n/1B6/P2pq3/NPb2N1P/3K1PP1/R1BQ3R w q - 0 12
+
+Checkmate - black win
+[Event "Engine vs Engine"]
+[Site "Local"]
+[Date "2022-12-01"]
+[Round "0"]
+[White "DeepChessLichess"]
+[Black "MiniMaxClassical"]
+[Result "*"]
+
+1. e4 d5 2. Qh5 dxe4 3. Bb5+ c6 4. Nc3 Qa5 5. Rb1 cxb5 6. Nxb5 Nf6 7. Nd6+ exd6 8. Qxa5 Nc6 9. Qa4 Be6 10. b3 O-O-O 11. Ne2 a6 12. h4 Rg8 13. Qa3 Kb8 14. g4 Nxg4 15. h5 Be7 16. Bb2 f5 17. h6 gxh6 18. Ba1 Bg5 19. Rh5 Bf7 20. Rxg5 hxg5 21. Kd1 Nxf2+ 22. Ke1 Ng4 23. Qa4 Rg6 24. Rb2 Rh6 25. Nc1 Rh1+ 26. Ke2 b5 27. Qxe4 fxe4 28. Rb1 Kb7 29. Bc3 b4 30. Bb2 Bg6 31. Bh8 Rxh8 32. c3 Rf8 33. a4 bxa3 34. d4 Rf2# *. . . . . . . .
+. k . . . . . p
+p . n p . . b .
+. . . . . . p .
+. . . P p . n .
+p P P . . . . .
+. . . . K r . .
+. R N . . . . r
+8/1k5p/p1np2b1/6p1/3Pp1n1/pPP5/4Kr2/1RN4r w - - 1 35
+
+Draw by repetition
+[Event "Engine vs Engine"]
+[Site "Local"]
+[Date "2022-12-01"]
+[Round "0"]
+[White "MiniMaxClassical"]
+[Black "DeepChessLichess"]
+[Result "*"]
+
+1. e3 e5 2. Qg4 h5 3. Qf5 Na6 4. Qxe5+ Qe7 5. Qxe7+ Nxe7 6. Bb5 Rh6 7. Nf3 Nb4 8. Na3 Rb8 9. O-O Rg6 10. Ne5 f6 11. Nxg6 Nxg6 12. c3 Nf4 13. exf4 Kd8 14. cxb4 h4 15. Nc2 h3 16. gxh3 c6 17. Ba4 b5 18. Bb3 g6 19. Bf7 Ra8 20. Bxg6 d5 21. Kg2 c5 22. a4 Be6 23. Re1 Bxh3+ 24. Kxh3 a5 25. Re8+ Kc7 26. Rxa8 Bd6 27. Ra7+ Kc8 28. Bf5+ Kd8 29. Rd7+ Ke8 30. Rxd6 d4 31. Rxf6 d3 32. Bxd3 c4 33. Re6+ Kf8 34. Rf6+ Ke8 35. Re6+ Kf8 36. Rf6+ *. . . . . k . .
+. . . . . . . .
+. . . . . R . .
+p p . . . . . .
+P P p . . P . .
+. . . B . . . K
+. P N P . P . P
+R . B . . . . .
+5k2/8/5R2/pp6/PPp2P2/3B3K/1PNP1P1P/R1B5 b - - 7 36
+
+Checkmate - black win
+[Event "Engine vs Engine"]
+[Site "Local"]
+[Date "2022-12-01"]
+[Round "0"]
+[White "DeepChessComputer"]
+[Black "MiniMaxClassical"]
+[Result "*"]
+
+1. e4 d5 2. exd5 Qxd5 3. Bb5+ Qxb5 4. h4 Qe5+ 5. Kf1 Bf5 6. g4 Qd5 7. Nc3 Qxh1 8. gxf5 Nc6 9. d4 O-O-O 10. Ne4 Qxe4 11. Bf4 Rxd4 12. Bd6 Rxd1+ 13. Rxd1 exd6 14. b4 Qg4 15. Rd3 Qc4 16. f4 Nxb4 17. h5 Nxc2 18. f6 Qxd3+ 19. Kg2 Nxf6 20. h6 Qg6+ 21. Kf2 Ne4+ 22. Ke2 Qxg1 23. Kd3 Qg2 24. hxg7 Bxg7 25. Kc4 Qe2+ 26. Kb3 Nc5# *. . k . . . . r
+p p p . . p b p
+. . . p . . . .
+. . n . . . . .
+. . . . . P . .
+. K . . . . . .
+P . n . q . . .
+. . . . . . . .
+2k4r/ppp2pbp/3p4/2n5/5P2/1K6/P1n1q3/8 w - - 4 27
+
+Checkmate - white win
+[Event "Engine vs Engine"]
+[Site "Local"]
+[Date "2022-12-01"]
+[Round "0"]
+[White "MiniMaxClassical"]
+[Black "DeepChessComputer"]
+[Result "*"]
+
+1. e3 d5 2. Qh5 Nf6 3. Qf3 c5 4. Bb5+ Bd7 5. Bd3 Ba4 6. b3 Bxb3 7. axb3 g5 8. Bb2 Bg7 9. Be5 d4 10. Qxb7 Nbd7 11. Bc7 Qb8 12. Bxb8 Rxb8 13. Qxa7 e6 14. exd4 cxd4 15. Qxd4 Nb6 16. Bb5+ Nfd7 17. Qxg7 Nd5 18. Qxh8+ Ke7 19. Qd4 Rd8 20. Bxd7 Nf4 21. Kf1 Rxd7 22. Qb4+ Rd6 23. Ra7+ Kf6 24. Qxd6 Kf5 25. Rxf7+ Kg6 26. Ra7 g4 27. Qxf4 g3 28. Nf3 h5 29. Qf7+ Kh6 30. hxg3 h4 31. Qxe6+ Kh5 32. Kg1 h3 33. Nc3 h2+ 34. Rxh2# *. . . . . . . .
+R . . . . . . .
+. . . . Q . . .
+. . . . . . . k
+. . . . . . . .
+. P N . . N P .
+. . P P . P P R
+. . . . . . K .
+8/R7/4Q3/7k/8/1PN2NP1/2PP1PPR/6K1 b - - 0 34

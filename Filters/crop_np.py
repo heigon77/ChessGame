@@ -2,7 +2,7 @@ import numpy as np
 
 np.random.seed(42)
 
-games = np.load("Data\data_bits_normal_not_capture_np_26.npy")
+games = np.load("Data\data_bits_normal_not_capture_np_computerchess.npy")
 
 print(games.shape)
 wins = []
@@ -18,13 +18,13 @@ new_np_loss = np.array(loss)
 
 np.random.shuffle(new_np_wins)
 print(new_np_wins.shape)
-np.save("Data\data_bits_normal_wins_train_26.npy", new_np_wins[:int(len(new_np_wins)-50000)])
-np.save("Data\data_bits_normal_wins_test_26.npy", new_np_wins[int(len(new_np_wins)-50000):])
+np.save("Data\data_bits_normal_computerchess_wins_train.npy", new_np_wins[:int(len(new_np_wins)-50000)])
+np.save("Data\data_bits_normal_computerchess_wins_test.npy", new_np_wins[int(len(new_np_wins)-50000):])
 
 np.random.shuffle(new_np_loss)
 print(new_np_loss.shape)
-np.save("Data\data_bits_normal_loss_train_26.npy", new_np_loss[:int(len(new_np_loss)-50000)])
-np.save("Data\data_bits_normal_loss_test_26.npy", new_np_loss[int(len(new_np_loss)-50000):])
+np.save("Data\data_bits_normal_computerchess_loss_train.npy", new_np_loss[:int(len(new_np_loss)-50000)])
+np.save("Data\data_bits_normal_computerchess_loss_test.npy", new_np_loss[int(len(new_np_loss)-50000):])
 
 # new_np = games[:2100000]
 
